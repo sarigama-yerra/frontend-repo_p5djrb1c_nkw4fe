@@ -15,14 +15,22 @@
   html {
     font-family: var(--font-sans);
     font-feature-settings: "rlig" 1, "calt" 1;
+    background: #E3FFCF; /* light green background */
   }
 
   body {
-    @apply antialiased;
+    @apply antialiased text-black;
   }
 }
 
-/* Custom utility classes for shadcn/ui patterns */
+/* Scrapbook theme tokens */
+@layer components {
+  .scrap-yellow { @apply bg-yellow-300 text-black; }
+  .scrap-teal { @apply bg-teal-300 text-black; }
+  .scrap-black { @apply bg-black text-yellow-300; }
+}
+
+/* Custom utility classes */
 @layer utilities {
   .animate-in {
     animation-name: animateIn;

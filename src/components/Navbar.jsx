@@ -1,47 +1,44 @@
 import { useState } from 'react'
 import { Menu, X, Sparkles } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 
-export default function Navbar({ onNavigate }) {
+export default function Navbar() {
   const [open, setOpen] = useState(false)
 
   const links = [
-    { id: 'hero', label: 'What is Studio Odkhaan?' },
-    { id: 'services', label: 'Services' },
-    { id: 'ai', label: 'AI Helper' },
-    { id: 'report', label: 'Organic Content Report' },
-    { id: 'testimonials', label: 'Testimonials' },
-    { id: 'contact', label: 'Contact' },
+    { to: '/', label: 'Home' },
+    { to: '/services', label: 'Services' },
+    { to: '/ai-helper', label: 'AI Helper' },
+    { to: '/organic-report', label: 'Organic Report' },
+    { to: '/testimonials', label: 'Testimonials' },
+    { to: '/contact', label: 'Contact' },
   ]
 
-  const handleClick = (id) => {
-    setOpen(false)
-    onNavigate?.(id)
-  }
-
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/60 border-b border-black/5">
+    <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-[#E3FFCF]/70 border-b border-black/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-fuchsia-500 via-violet-500 to-indigo-500 flex items-center justify-center shadow-md">
-              <Sparkles className="h-5 w-5 text-white" />
+          <Link to="/" className="flex items-center gap-2">
+            <div className="h-9 w-9 rounded-lg bg-gradient-to-br from-yellow-400 via-teal-400 to-black flex items-center justify-center shadow-sm">
+              <Sparkles className="h-5 w-5 text-black" />
             </div>
-            <span className="font-semibold text-slate-900">Studio Odkhaan</span>
-          </div>
-          <div className="hidden md:flex items-center gap-6">
+            <span className="font-semibold text-black">Studio Odkhaan</span>
+          </Link>
+          <div className="hidden md:flex items-center gap-4">
             {links.map((l) => (
-              <button
-                key={l.id}
-                onClick={() => handleClick(l.id)}
-                className="text-sm font-medium text-slate-700 hover:text-slate-900 transition-colors"
+              <Link
+                key={l.to}
+                to={l.to}
+                className="text-sm font-medium text-black/80 hover:text-black transition-colors px-2 py-1 rounded-md hover:bg-yellow-200/60"
+                onClick={() => setOpen(false)}
               >
                 {l.label}
-              </button>
+              </Link>
             ))}
           </div>
           <button
-            className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-slate-700 hover:bg-slate-100"
+            className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-black hover:bg-yellow-200/60"
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
           >
@@ -55,17 +52,18 @@ export default function Navbar({ onNavigate }) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="md:hidden border-t border-black/5 bg-white/80 backdrop-blur"
+            className="md:hidden border-t border-black/10 bg-[#E3FFCF]/80 backdrop-blur"
           >
             <div className="px-4 py-4 space-y-2">
               {links.map((l) => (
-                <button
-                  key={l.id}
-                  onClick={() => handleClick(l.id)}
-                  className="block w-full text-left px-2 py-2 rounded-lg hover:bg-slate-100 text-slate-800"
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  className="block w-full text-left px-3 py-2 rounded-lg hover:bg-yellow-200/60 text-black"
+                  onClick={() => setOpen(false)}
                 >
                   {l.label}
-                </button>
+                </Link>
               ))}
             </div>
           </motion.div>
